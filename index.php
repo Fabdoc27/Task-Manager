@@ -2,19 +2,19 @@
 
     require_once './config.php';
 
-    $connection = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
+    $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-    if ( !$connection ) {
-        throw new Exception( "Cannot connect to database: " . mysqli_connect_error() );
+    if (!$connection) {
+        throw new Exception("Cannot connect to database: " . mysqli_connect_error());
     }
 
     $allTasks = "SELECT * FROM tasks WHERE complete = 0 ORDER BY date";
-    $allTasksResult = mysqli_query( $connection, $allTasks );
+    $allTasksResult = mysqli_query($connection, $allTasks);
 
     $completedTasks = "SELECT * FROM tasks WHERE complete = 1 ORDER BY date";
-    $completedTasksResult = mysqli_query( $connection, $completedTasks );
+    $completedTasksResult = mysqli_query($connection, $completedTasks);
 
-    mysqli_close( $connection );
+    mysqli_close($connection);
 
 ?>
 <!doctype html>
@@ -33,7 +33,7 @@
     <main class="container wrapper">
         <h1 class="tc mb-2">Task Management</h1>
 
-        <?php if ( mysqli_num_rows( $allTasksResult ) == 0 ): ?>
+        <?php if (mysqli_num_rows($allTasksResult) == 0): ?>
         <blockquote class="mb-2">No tasks found</blockquote>
         <?php else: ?>
 
@@ -51,11 +51,11 @@
                     </thead>
                     <tbody>
                         <?php
-                        while ( $data = mysqli_fetch_assoc( $allTasksResult ) ): ?>
+                        while ($data = mysqli_fetch_assoc($allTasksResult)): ?>
                         <?php
-    $timestamp = strtotime( $data['date'] );
-    $date = date( "jS M, Y", $timestamp );
-?>
+                                $timestamp = strtotime($data['date']);
+                                $date = date("jS M, Y", $timestamp);
+                            ?>
                         <tr>
                             <th scope="row" class="tc">
                                 <input name="bulkid[]" type="checkbox" role="switch"
@@ -85,7 +85,7 @@
         <hr>
         <?php endif;?>
 
-        <?php if ( mysqli_num_rows( $completedTasksResult ) > 0 ): ?>
+        <?php if (mysqli_num_rows($completedTasksResult) > 0): ?>
         <div class="mb-3">
             <h4>Completed Tasks</h4>
             <table>
@@ -97,11 +97,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ( $completedData = mysqli_fetch_assoc( $completedTasksResult ) ): ?>
+                    <?php while ($completedData = mysqli_fetch_assoc($completedTasksResult)): ?>
                     <?php
-                        $timestamp = strtotime( $completedData['date'] );
-                        $completedDate = date( "jS M, Y", $timestamp );
-                    ?>
+                            $timestamp = strtotime($completedData['date']);
+                            $completedDate = date("jS M, Y", $timestamp);
+                        ?>
                     <tr>
                         <th class="tc"><?=$completedData['task'];?></th>
                         <td class="tc"><?=$completedDate;?></td>
@@ -121,7 +121,7 @@
             <h4>Add Tasks</h4>
             <?php
                 $added = $_GET['added'] ?? "";
-                if ( $added ) {
+                if ($added) {
                     echo "<blockquote>Task successfully added.</blockquote>";
                 }
             ?>
