@@ -7,7 +7,7 @@ A simple PHP-based task management application.
 1. **Clone the repository:**
 
     ```shell
-    git clone git@github.com:ashrafulbinharun/Task-Manager.git
+    git clone git@github.com:Fabdoc27/Task-Manager.git
     cd Task-Manager
     ```
 
